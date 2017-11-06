@@ -1,0 +1,25 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "swagger"
+basePath: "/prod"
+schemes:
+- "https"
+paths:
+  /create:
+    post:
+      responses: {}
+      security:
+      - sigv4: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.LambdaCreateFunction}/create"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+securityDefinitions:
+  sigv4:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    x-amazon-apigateway-authtype: "awsSigv4"
