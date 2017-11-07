@@ -2,10 +2,11 @@
 # with status code != 0
 set -e
 
-source ../../../infra/variables.sh 
-
-STACK_NAME="${PROJECT_NAME}-todomvc-frontend"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "${DIR}/../../../infra/variables.sh" 
+STACK_NAME="${PROJECT_NAME}-todomvc-frontend"
+
 
 function update_stack {
   echo ">>> packaging cloudformation stack ..."
