@@ -1,0 +1,9 @@
+  # XXX: requires email verification -> seperate cf template
+  # XXX: must be in region us-east-1 to be used with cloudfront -> seperate cf template
+  #DomainCertificate:
+  #  Type: AWS::CertificateManager::Certificate
+  #  Properties:
+  #    DomainName: myshoddy.com
+  #    DomainValidationOptions:
+  #    - DomainName: myshoddy.com
+  #      ValidationDomain: myshoddy.com
