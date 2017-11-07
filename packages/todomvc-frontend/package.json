@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "todomvc-app-css": "^2.1.0",
+    "todomvc-common": "^1.0.4",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "deploy:": "infra/deploy.sh",
