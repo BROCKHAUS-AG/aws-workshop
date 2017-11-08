@@ -1,0 +1,113 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+
+  # DYNAMO DB
+  DynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: todos
+
+  # API GATEWAY
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      DefinitionUri: swagger.yaml
+      StageName: Prod
+      Variables:
+        CreateLambda: !Ref Create
+        DeleteLambda: !Ref Delete
+        GetLambda: !Ref Get
+        ListLambda: !Ref List
+        UpdateLambda: !Ref Update
+
+  # FUNCTIONS
+  Create:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda/create.create
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          DYNAMODB_TABLE: !Ref DynamoDBTable
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /create
+            Method: post
+
+  Delete:
+    Type: AWS::Serverless::Function
+    Properties:
+        Handler: lambda/delete.delete
+        Runtime: nodejs6.10
+        Policies: AmazonDynamoDBFullAccess
+        Environment:
+          Variables:
+            DYNAMODB_TABLE: !Ref DynamoDBTable
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /delete
+              Method: post
+
+  Get:
+    Type: AWS::Serverless::Function
+    Properties:
+        Handler: lambda/get.get
+        Runtime: nodejs6.10
+        Policies: AmazonDynamoDBFullAccess
+        Environment:
+          Variables:
+            DYNAMODB_TABLE: !Ref DynamoDBTable
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /get
+              Method: get
+
+  List:
+    Type: AWS::Serverless::Function
+    Properties:
+        Handler: lambda/list.list
+        Runtime: nodejs6.10
+        Policies: AmazonDynamoDBFullAccess
+        Environment:
+          Variables:
+            DYNAMODB_TABLE: !Ref DynamoDBTable
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /list
+              Method: get
+
+  Update:
+    Type: AWS::Serverless::Function
+    Properties:
+        Handler: lambda/update.update
+        Runtime: nodejs6.10
+        Policies: AmazonDynamoDBFullAccess
+        Environment:
+          Variables:
+            DYNAMODB_TABLE: !Ref DynamoDBTable
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /update
+              Method: post

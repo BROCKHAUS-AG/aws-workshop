@@ -1,0 +1,69 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "swagger"
+basePath: "/prod"
+schemes:
+- "https"
+paths:
+  /create:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+              statusCode: '200'
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.CreateLambda}/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+
+  /delete/{id}:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+              statusCode: '200'
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.DeleteLambda}/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+
+  /get/{id}:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+              statusCode: '200'
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.GetLambda}/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: GET
+        type: aws_proxy
+
+  /list:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+              statusCode: '200'
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.ListLambda}/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: GET
+        type: aws_proxy
+
+  /update/{id}:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+              statusCode: '200'
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.UpdateLambda}/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+

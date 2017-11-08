@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-backend-todos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "infrastructure as code for AWS",
+  "scripts": {
+    "deploy:": "infra/deploy.sh"
+  }
+}
