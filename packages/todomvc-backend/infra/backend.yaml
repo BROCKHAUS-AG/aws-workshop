@@ -22,7 +22,7 @@ Resources:
   ApiGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
-      DefinitionUri: swagger.yaml
+      DefinitionUri: swagger-output.yaml
       StageName: Prod
       Variables:
         CreateLambda: !Ref Create

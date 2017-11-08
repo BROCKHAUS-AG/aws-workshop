@@ -1,3 +1,13 @@
+ROOT_INFRA_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+USER_SETTINGS="${ROOT_INFRA_DIR}/user-settings.sh"
+if [ ! -f $USER_SETTINGS ]; then
+    echo "user-settings.sh not found! Please create and retry"
+    exit 1
+fi
+
+source $USER_SETTINGS
+
 PROJECT_NAME=aws-workshop
 
 # Route 53

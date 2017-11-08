@@ -14,7 +14,7 @@ paths:
         responses:
           default:
               statusCode: '200'
-        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.CreateLambda}/invocations"
+        uri: "arn:aws:apigateway:<<region>>:lambda:path/2015-03-31/functions/arn:aws:lambda:<<region>>:<<accountId>>:function:${stageVariables.CreateLambda}/invocations"
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
@@ -26,7 +26,7 @@ paths:
         responses:
           default:
               statusCode: '200'
-        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.DeleteLambda}/invocations"
+        uri: "arn:aws:apigateway:<<region>>:lambda:path/2015-03-31/functions/arn:aws:lambda:<<region>>:<<accountId>>:function:${stageVariables.DeleteLambda}/invocations"
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
@@ -38,7 +38,7 @@ paths:
         responses:
           default:
               statusCode: '200'
-        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.GetLambda}/invocations"
+        uri: "arn:aws:apigateway:<<region>>:lambda:path/2015-03-31/functions/arn:aws:lambda:<<region>>:<<accountId>>:function:${stageVariables.GetLambda}/invocations"
         passthroughBehavior: when_no_match
         httpMethod: GET
         type: aws_proxy
@@ -50,7 +50,7 @@ paths:
         responses:
           default:
               statusCode: '200'
-        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.ListLambda}/invocations"
+        uri: "arn:aws:apigateway:<<region>>:lambda:path/2015-03-31/functions/arn:aws:lambda:<<region>>:<<accountId>>:function:${stageVariables.ListLambda}/invocations"
         passthroughBehavior: when_no_match
         httpMethod: GET
         type: aws_proxy
@@ -62,7 +62,7 @@ paths:
         responses:
           default:
               statusCode: '200'
-        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:412283711490:function:${stageVariables.UpdateLambda}/invocations"
+        uri: "arn:aws:apigateway:<<region>>:lambda:path/2015-03-31/functions/arn:aws:lambda:<<region>>:<<accountId>>:function:${stageVariables.UpdateLambda}/invocations"
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy

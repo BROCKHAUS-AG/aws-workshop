@@ -11,6 +11,7 @@ STACK_NAME="${PROJECT_NAME}-todomvc-frontend"
 function update_stack {
   echo ">>> packaging cloudformation stack ..."
   aws cloudformation package \
+    --region ${REGION} \
     --template-file "${DIR}/stack.yaml" \
     --output-template-file "${DIR}/stack-output.yaml" \
     --s3-bucket "${S3BUCKET_STACK}"
@@ -18,6 +19,7 @@ function update_stack {
 
   echo ">>> deploying cloudformation stack ..."
   aws cloudformation deploy \
+    --region ${REGION} \
     --template-file "${DIR}/stack-output.yaml" \
     --stack-name $STACK_NAME \
     --capabilities CAPABILITY_IAM \
