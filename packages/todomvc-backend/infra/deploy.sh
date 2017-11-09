@@ -18,14 +18,14 @@ function update_stack {
   echo ">>> packaging cloudformation stack ..."
   aws cloudformation package \
     --region ${REGION} \
-    --template-file "${DIR}/backend.yaml" \
-    --output-template-file "${DIR}/serverless-output.yaml" \
+    --template-file "${DIR}/todomvc-backend-stack.yaml" \
+    --output-template-file "${DIR}/todomvc-backend-stack-output.yaml" \
     --s3-bucket "${S3BUCKET_STACK}"
 
   echo ">>> deploying cloudformation stack ..."
   aws cloudformation deploy \
     --region ${REGION} \
-    --template-file "${DIR}/serverless-output.yaml" \
+    --template-file "${DIR}/todomvc-backend-stack-output.yaml" \
     --stack-name "$STACK_NAME" \
     --capabilities CAPABILITY_IAM
 }

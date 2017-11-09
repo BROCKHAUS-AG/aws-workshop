@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import uuid from 'uuid';
 import "todomvc-app-css/index.css";
 import "./App.css";
 import FooterToolbar from "./FooterToolbar";
 import FooterInfo from "./FooterInfo";
 import TodoItem from "./TodoItem";
+import { getTodos, createTodo, updateTodo, deleteTodo } from './api/todos';
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +14,11 @@ class App extends Component {
       filter: 'all',
       todos: [],
     };
+  }
+
+  async componentDidMount() {
+    const todos = await getTodos();
+    this.setState({ todos });
   }
 
   render() {
@@ -69,13 +74,9 @@ class App extends Component {
     });
   };
 
-  handleKeydown = (evt) => {
+  handleKeydown = async evt => {
     if (evt.keyCode === 13 /* Return */ && this.state.newTodo) {
-      const todo = {
-        id: uuid.v4(),
-        title: this.state.newTodo,
-        completed: false,
-      };
+      const todo = await createTodo(this.state.newTodo);
 
       this.setState({
         newTodo: '',
@@ -84,31 +85,37 @@ class App extends Component {
     }
   };
 
-  handleToggle = (todoId) => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id !== todoId) {
-          return todo;
-        }
+  handleToggle = async todoId => {
+    const todoPromises = this.state.todos.map(todo => {
+      if (todo.id !== todoId) {
+        return Promise.resolve(todo);
+      }
 
-        return { ...todo, completed: !todo.completed, };
-      }),
+      return updateTodo({ ...todo, completed: !todo.completed, });
+    });
+
+    this.setState({
+      todos: await Promise.all(todoPromises),
+    });
+  };
+
+  handleUpdate = async (todoId, title) => {
+    const todoPromises = this.state.todos.map(todo => {
+      if (todo.id !== todoId) {
+        return Promise.resolve(todo);
+      }
+
+      return updateTodo({ ...todo, title });
+    });
+
+    this.setState({
+      todos: await Promise.all(todoPromises),
     })
   };
 
-  handleUpdate = (todoId, title) => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id !== todoId) {
-          return todo;
-        }
+  handleDelete = async todoId => {
+    await deleteTodo(todoId);
 
-        return { ...todo, title };
-      }),
-    })
-  };
-
-  handleDelete = (todoId) => {
     this.setState({
       todos: this.state.todos.filter(todo => todo.id !== todoId),
     })

@@ -27,7 +27,6 @@ Resources:
       Variables:
         CreateLambda: !Ref Create
         DeleteLambda: !Ref Delete
-        GetLambda: !Ref Get
         ListLambda: !Ref List
         UpdateLambda: !Ref Update
 
@@ -45,8 +44,9 @@ Resources:
         GetResource:
           Type: Api
           Properties:
-            Path: /create
-            Method: post
+            Path: /todos
+            RestApiId: !Ref ApiGatewayApi
+            Method: POST
 
   Delete:
     Type: AWS::Serverless::Function
@@ -61,53 +61,40 @@ Resources:
           GetResource:
             Type: Api
             Properties:
-              Path: /delete
-              Method: post
-
-  Get:
-    Type: AWS::Serverless::Function
-    Properties:
-        Handler: lambda/get.get
-        Runtime: nodejs6.10
-        Policies: AmazonDynamoDBFullAccess
-        Environment:
-          Variables:
-            DYNAMODB_TABLE: !Ref DynamoDBTable
-        Events:
-          GetResource:
-            Type: Api
-            Properties:
-              Path: /get
-              Method: get
+              Path: /todos
+              RestApiId: !Ref ApiGatewayApi
+              Method: DELETE
 
   List:
     Type: AWS::Serverless::Function
     Properties:
-        Handler: lambda/list.list
-        Runtime: nodejs6.10
-        Policies: AmazonDynamoDBFullAccess
-        Environment:
-          Variables:
-            DYNAMODB_TABLE: !Ref DynamoDBTable
-        Events:
-          GetResource:
-            Type: Api
-            Properties:
-              Path: /list
-              Method: get
+      Handler: lambda/list.list
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          DYNAMODB_TABLE: !Ref DynamoDBTable
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /todos
+            RestApiId: !Ref ApiGatewayApi
+            Method: GET
 
   Update:
     Type: AWS::Serverless::Function
     Properties:
-        Handler: lambda/update.update
-        Runtime: nodejs6.10
-        Policies: AmazonDynamoDBFullAccess
-        Environment:
-          Variables:
-            DYNAMODB_TABLE: !Ref DynamoDBTable
-        Events:
-          GetResource:
-            Type: Api
-            Properties:
-              Path: /update
-              Method: post
+      Handler: lambda/update.update
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          DYNAMODB_TABLE: !Ref DynamoDBTable
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /todos
+            RestApiId: !Ref ApiGatewayApi
+            Method: POST

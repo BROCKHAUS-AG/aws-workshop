@@ -12,15 +12,15 @@ function update_stack {
   echo ">>> packaging cloudformation stack ..."
   aws cloudformation package \
     --region ${REGION} \
-    --template-file "${DIR}/stack.yaml" \
-    --output-template-file "${DIR}/stack-output.yaml" \
+    --template-file "${DIR}/todomvc-frontend-stack.yaml" \
+    --output-template-file "${DIR}/todomvc-frontend-stack-output.yaml" \
     --s3-bucket "${S3BUCKET_STACK}"
 
 
   echo ">>> deploying cloudformation stack ..."
   aws cloudformation deploy \
     --region ${REGION} \
-    --template-file "${DIR}/stack-output.yaml" \
+    --template-file "${DIR}/todomvc-frontend-stack-output.yaml" \
     --stack-name $STACK_NAME \
     --capabilities CAPABILITY_IAM \
     --parameter-overrides \

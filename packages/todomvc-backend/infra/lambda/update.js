@@ -9,11 +9,14 @@ module.exports.update = (event, context, callback) => {
     const data = JSON.parse(event.body);
 
     // validation
-    if (typeof data.text !== 'string' || typeof data.checked !== 'boolean') {
+    if (typeof data.title !== 'string' || typeof data.completed !== 'boolean') {
         console.error('Validation Failed');
         callback(null, {
             statusCode: 400,
-            headers: { 'Content-Type': 'text/plain' },
+            headers: {
+                'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*',
+            },
             body: 'Couldn\'t update the todo item.',
         });
         return;
@@ -25,14 +28,14 @@ module.exports.update = (event, context, callback) => {
             id: event.queryStringParameters.id,
         },
         ExpressionAttributeNames: {
-            '#todo_text': 'text',
+            '#todo_title': 'title',
         },
         ExpressionAttributeValues: {
-            ':text': data.text,
-            ':checked': data.checked,
+            ':title': data.title,
+            ':completed': data.completed,
             ':updatedAt': timestamp,
         },
-        UpdateExpression: 'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
+        UpdateExpression: 'SET #todo_title = :title, completed = :completed, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
     };
 
@@ -43,7 +46,10 @@ module.exports.update = (event, context, callback) => {
             console.error(error);
             callback(null, {
                 statusCode: error.statusCode || 501,
-                headers: { 'Content-Type': 'text/plain' },
+                headers: {
+                    'Content-Type': 'text/plain',
+                    'Access-Control-Allow-Origin': '*',
+                },
                 body: 'Couldn\'t fetch the todo item.',
             });
             return;
@@ -52,6 +58,9 @@ module.exports.update = (event, context, callback) => {
         // create a response
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
             body: JSON.stringify(result.Attributes),
         };
         callback(null, response);
