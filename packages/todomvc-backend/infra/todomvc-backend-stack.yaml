@@ -97,4 +97,4 @@ Resources:
           Properties:
             Path: /todos
             RestApiId: !Ref ApiGatewayApi
-            Method: POST
+            Method: PUT

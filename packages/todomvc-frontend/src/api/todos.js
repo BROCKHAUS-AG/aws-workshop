@@ -1,4 +1,4 @@
-const TODOS_API = 'https://ddcahfyytj.execute-api.eu-central-1.amazonaws.com/Prod/todos';
+const TODOS_API = 'https://rqvmwff5ia.execute-api.eu-central-1.amazonaws.com/Prod/todos';
 
 export async function getTodos() {
     const data = await fetch(TODOS_API);
@@ -16,7 +16,7 @@ export async function createTodo(title) {
 }
 
 export async function updateTodo(todo) {
-    const data = await fetch(TODOS_API, {
+    const data = await fetch(`${TODOS_API}?id=${todo.id}`, {
         method: 'PUT',
         body: JSON.stringify(todo),
     });
