@@ -34,7 +34,8 @@ Resources:
   Create:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/create.create
+      Handler: create.create
+      CodeUri: ../src
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -51,7 +52,8 @@ Resources:
   Delete:
     Type: AWS::Serverless::Function
     Properties:
-        Handler: lambda/delete.delete
+        Handler: delete.delete
+        CodeUri: ../src
         Runtime: nodejs6.10
         Policies: AmazonDynamoDBFullAccess
         Environment:
@@ -68,7 +70,8 @@ Resources:
   List:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/list.list
+      Handler: list.list
+      CodeUri: ../src
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -85,7 +88,8 @@ Resources:
   Update:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/update.update
+      Handler: update.update
+      CodeUri: ../src
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:
